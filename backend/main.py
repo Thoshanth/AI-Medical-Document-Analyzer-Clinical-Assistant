@@ -8,8 +8,15 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from backend.database.db import init_db
+from backend.medical_rag.rag_pipeline import (
+    index_medical_document,
+    medical_rag_query,
+)
 from backend.ingestion.extractor import extract_text
 from backend.clinical_nlp.nlp_pipeline import run_clinical_nlp, get_clinical_entities
+from backend.knowledge_base.kb_pipeline import enrich_with_knowledge_base
+from backend.knowledge_base.drug_db import get_drug_info
+from backend.knowledge_base.disease_db import get_disease_info, get_all_diseases
 from backend.ingestion.cleaner import clean_medical_text, get_word_count
 from backend.ingestion.classifier import classify_document
 from backend.ingestion.medical_metadata import extract_medical_metadata
@@ -237,3 +244,132 @@ def get_analysis(document_id: int):
             f"Run POST /analyze/{document_id} first."
         )
     return result
+# ══════════════════════════════════════════════════════════════════
+# STAGE 3 — Medical Knowledge Base
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/knowledge/enrich/{document_id}", tags=["Stage 3 - Knowledge Base"])
+def enrich_document(document_id: int):
+    """
+    Enriches clinical entities with medical knowledge base.
+
+    Requires Stage 2 analysis to be run first.
+
+    Adds to each diagnosis:
+    - Disease description, treatments, complications
+    - Monitoring requirements, emergency signs
+
+    Adds to each medication:
+    - Drug class, indications, contraindications
+    - Side effects, interactions, high-risk flag
+
+    Also runs symptom checker and builds clinical summary.
+    """
+    logger.info(f"KB enrichment | doc_id={document_id}")
+    try:
+        result = enrich_with_knowledge_base(document_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"KB enrichment failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.get("/knowledge/drug/{drug_name}", tags=["Stage 3 - Knowledge Base"])
+def lookup_drug(drug_name: str):
+    """
+    Look up drug information by name.
+    Searches local DB then OpenFDA API.
+    """
+    info = get_drug_info(drug_name)
+    if not info:
+        raise HTTPException(404, f"Drug '{drug_name}' not found")
+    return info
+
+
+@app.get("/knowledge/disease/{disease_name}", tags=["Stage 3 - Knowledge Base"])
+def lookup_disease(disease_name: str):
+    """
+    Look up disease information by name.
+    Returns full clinical profile.
+    """
+    info = get_disease_info(disease_name)
+    if not info:
+        raise HTTPException(
+            404,
+            f"Disease '{disease_name}' not found in knowledge base"
+        )
+    return info
+
+
+@app.get("/knowledge/diseases", tags=["Stage 3 - Knowledge Base"])
+def list_diseases():
+    """List all diseases in the knowledge base."""
+    return {"diseases": get_all_diseases()}
+
+
+# ══════════════════════════════════════════════════════════════════
+# STAGE 4 — Medical RAG Pipeline
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/medical-rag/index/{document_id}", tags=["Stage 4 - Medical RAG"])
+def index_for_rag(document_id: int):
+    """
+    Index a medical document for RAG queries.
+
+    Uses medical-aware chunking (preserves lab sections,
+    medication lists, SOAP note sections) and PubMedBERT
+    embeddings for medical domain accuracy.
+
+    Run this after /upload and /analyze/{id}.
+    """
+    logger.info(f"Medical RAG index | doc_id={document_id}")
+    try:
+        result = index_medical_document(document_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Indexing failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/medical-rag/query", tags=["Stage 4 - Medical RAG"])
+def medical_query(
+    question: str,
+    document_id: int = None,
+    top_k: int = 5,
+    include_kb: bool = True,
+):
+    """
+    Ask a medical question. Returns cited, safe answer.
+
+    Combines:
+    - PubMedBERT semantic retrieval
+    - BM25 keyword matching
+    - Medical entity boost
+    - Stage 2 clinical entity context
+    - Stage 3 knowledge base enrichment
+
+    Always includes medical disclaimer and source citations.
+    Critical findings are flagged prominently.
+
+    document_id: filter to one document (optional)
+    include_kb: include knowledge base context (default True)
+    """
+    logger.info(
+        f"Medical RAG query | "
+        f"question='{question[:50]}' | "
+        f"doc_id={document_id}"
+    )
+    try:
+        return medical_rag_query(
+            question=question,
+            document_id=document_id,
+            top_k=top_k,
+            include_kb=include_kb,
+        )
+    except Exception as e:
+        logger.error(f"Medical query failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
