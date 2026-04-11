@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.db
+uploads/
+logs/
+chroma_db/
+graph_data/
+mlruns/

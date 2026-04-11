@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pymupdf
+pdfplumber
+python-multipart
+sqlalchemy
+pydantic
+python-dotenv
+openai
+fhir.resources
+simple-icd-10
+pillow
+sentence-transformers
+numpy
+requests
