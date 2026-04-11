@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from backend.database.db import init_db
 from backend.ingestion.extractor import extract_text
+from backend.clinical_nlp.nlp_pipeline import run_clinical_nlp, get_clinical_entities
 from backend.ingestion.cleaner import clean_medical_text, get_word_count
 from backend.ingestion.classifier import classify_document
 from backend.ingestion.medical_metadata import extract_medical_metadata
@@ -191,3 +192,48 @@ def get_document(document_id: int):
 @app.get("/health", tags=["Health"])
 def health():
     return {"status": "healthy", "service": "AI Medical Platform", "version": "0.1.0"}
+
+# ══════════════════════════════════════════════════════════════════
+# STAGE 2 — Clinical NLP Pipeline
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/analyze/{document_id}", tags=["Stage 2 - Clinical NLP"])
+def analyze_document(document_id: int):
+    """
+    Run full clinical NLP on an uploaded document.
+
+    Extracts:
+    - Symptoms (with severity and duration)
+    - Diagnoses (with ICD-10 codes)
+    - Medications (normalized with drug class)
+    - Lab values (interpreted with normal ranges)
+    - Vital signs
+    - Procedures
+
+    Also generates clinical alerts for critical findings.
+    """
+    logger.info(f"Clinical NLP requested | doc_id={document_id}")
+    try:
+        result = run_clinical_nlp(document_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Clinical NLP failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.get("/analyze/{document_id}", tags=["Stage 2 - Clinical NLP"])
+def get_analysis(document_id: int):
+    """
+    Get previously stored clinical NLP results.
+    No LLM call — reads from database.
+    """
+    result = get_clinical_entities(document_id)
+    if not result:
+        raise HTTPException(
+            404,
+            f"No analysis found for document {document_id}. "
+            f"Run POST /analyze/{document_id} first."
+        )
+    return result

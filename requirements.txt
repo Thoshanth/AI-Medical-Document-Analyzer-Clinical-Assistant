@@ -13,3 +13,4 @@ pillow
 sentence-transformers
 numpy
 requests
+python-dotenv
