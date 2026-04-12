@@ -6,6 +6,11 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from backend.clinical_agents.agent_pipeline import run_clinical_agents
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from backend.medical_safety.safety_pipeline import (
+    run_medical_input_safety,
+    run_medical_output_safety,
+)
+from backend.medical_safety.emergency_detector import detect_emergency
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from backend.database.db import init_db
@@ -363,34 +368,42 @@ def medical_query(
     top_k: int = 5,
     include_kb: bool = True,
 ):
-    """
-    Ask a medical question. Returns cited, safe answer.
+    logger.info(f"Medical RAG query | question='{question[:50]}'")
 
-    Combines:
-    - PubMedBERT semantic retrieval
-    - BM25 keyword matching
-    - Medical entity boost
-    - Stage 2 clinical entity context
-    - Stage 3 knowledge base enrichment
+    # Stage 9: Medical input safety
+    safety_check = run_medical_input_safety(question)
+    if safety_check.get("emergency"):
+        return {
+            "answer": safety_check["emergency_response"],
+            "is_emergency": True,
+            "emergency_type": safety_check.get("emergency_type"),
+            "sources": [],
+        }
 
-    Always includes medical disclaimer and source citations.
-    Critical findings are flagged prominently.
-
-    document_id: filter to one document (optional)
-    include_kb: include knowledge base context (default True)
-    """
-    logger.info(
-        f"Medical RAG query | "
-        f"question='{question[:50]}' | "
-        f"doc_id={document_id}"
-    )
     try:
-        return medical_rag_query(
+        result = medical_rag_query(
             question=question,
             document_id=document_id,
             top_k=top_k,
             include_kb=include_kb,
         )
+
+        # Stage 9: Medical output safety
+        output_safety = run_medical_output_safety(
+            result["answer"],
+            urgency_level="routine",
+        )
+        result["answer"] = output_safety["safe_answer"]
+        result["safety_info"] = {
+            "hallucination_risk": output_safety["hallucination_risk"],
+            "pii_redacted": output_safety["pii_redacted"],
+            "disclaimer_type": output_safety["disclaimer_type"],
+            "warnings": output_safety["warnings"],
+        }
+        return result
+
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Medical query failed: {e}", exc_info=True)
         raise HTTPException(500, str(e))
@@ -640,27 +653,18 @@ def clinical_agent_analysis(
     max_iterations: int = 3,
     show_agent_trace: bool = False,
 ):
-    """
-    Full 5-agent clinical analysis system.
+    logger.info(f"Clinical agents | doc_id={document_id}")
 
-    Agent 1 — Triage: urgency assessment + emergency detection
-    Agent 2 — Diagnosis: differential diagnosis + ICD-10 codes
-    Agent 3 — Pharmacist: medication safety + interactions
-    Agent 4 — Research: evidence-based findings + guidelines
-    Agent 5 — Safety: quality review + ethics + final approval
+    # Stage 9: Medical input safety
+    safety_check = run_medical_input_safety(question)
+    if safety_check.get("emergency"):
+        return {
+            "answer": safety_check["emergency_response"],
+            "is_emergency": True,
+            "urgency_level": "emergency",
+            "agents_used": [],
+        }
 
-    Emergency cases are fast-tracked directly to Safety Agent.
-    Safety Agent can request revisions from any other agent.
-
-    show_agent_trace=true reveals each agent's full output.
-
-    Requires at minimum Stage 2 analysis (POST /analyze/{id}).
-    Works best with Stages 3-7 also completed.
-    """
-    logger.info(
-        f"Clinical agents | doc_id={document_id} | "
-        f"question='{question[:50]}'"
-    )
     try:
         result = run_clinical_agents(
             document_id=document_id,
@@ -668,7 +672,78 @@ def clinical_agent_analysis(
             max_iterations=max_iterations,
             show_agent_trace=show_agent_trace,
         )
+
+        # Stage 9: Output safety
+        output_safety = run_medical_output_safety(
+            result["final_answer"],
+            urgency_level=result.get("urgency_level", "routine"),
+        )
+        result["final_answer"] = output_safety["safe_answer"]
+        result["safety_info"] = {
+            "hallucination_risk": output_safety["hallucination_risk"],
+            "warnings": output_safety["warnings"],
+            "disclaimer_type": output_safety["disclaimer_type"],
+        }
         return result
+
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Clinical agents failed: {e}", exc_info=True)
         raise HTTPException(500, str(e))
+
+# ══════════════════════════════════════════════════════════════════
+# STAGE 9 — Medical Safety Guardrails
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/safety/check-input", tags=["Stage 9 - Medical Safety"])
+def safety_check_input(question: str):
+    """
+    Standalone medical safety check for any input.
+
+    Runs all 6 safety layers:
+    1. Input validation (dangerous requests, injection)
+    2. Emergency detection (returns crisis resources if needed)
+    3. Medical PII detection
+    4. Medical scope enforcement
+
+    Use this to pre-check any user input before processing.
+    """
+    logger.info(f"Safety check | question='{question[:50]}'")
+    try:
+        result = run_medical_input_safety(question)
+        return result
+    except HTTPException as e:
+        return {
+            "safe": False,
+            "detail": e.detail,
+        }
+
+
+@app.post("/safety/check-output", tags=["Stage 9 - Medical Safety"])
+def safety_check_output(
+    answer: str,
+    urgency_level: str = "routine",
+):
+    """
+    Standalone output safety check.
+
+    Runs output safety layers:
+    5. Hallucination detection
+    6. Medical PII redaction
+    7. Mandatory disclaimer injection
+
+    Use this to validate any AI-generated medical text.
+    """
+    return run_medical_output_safety(answer, urgency_level)
+
+
+@app.post("/safety/emergency-check", tags=["Stage 9 - Medical Safety"])
+def emergency_check(text: str):
+    """
+    Standalone emergency detection.
+    Returns emergency resources if life-threatening symptoms detected.
+    Use before any processing when patient may be in crisis.
+    """
+    result = detect_emergency(text)
+    return result
