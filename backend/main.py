@@ -17,7 +17,17 @@ from backend.clinical_nlp.nlp_pipeline import run_clinical_nlp, get_clinical_ent
 from backend.knowledge_base.kb_pipeline import enrich_with_knowledge_base
 from backend.knowledge_base.drug_db import get_drug_info
 from backend.knowledge_base.disease_db import get_disease_info, get_all_diseases
+from backend.drug_interaction.interaction_pipeline import (
+    check_all_medications,
+    check_drug_pair,
+)
 from backend.ingestion.cleaner import clean_medical_text, get_word_count
+from backend.medical_graph.graph_pipeline import (
+    build_medical_graph,
+    query_medical_graph,
+    get_patient_summary,
+    explore_graph,
+)
 from backend.ingestion.classifier import classify_document
 from backend.ingestion.medical_metadata import extract_medical_metadata
 from backend.storage.document_store import (
@@ -372,4 +382,135 @@ def medical_query(
         )
     except Exception as e:
         logger.error(f"Medical query failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+    
+# ══════════════════════════════════════════════════════════════════
+# STAGE 5 — Drug Interaction Checker
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/interactions/check/{document_id}", tags=["Stage 5 - Drug Interactions"])
+def check_document_interactions(document_id: int):
+    """
+    Check all drug interactions for medications in a document.
+
+    Requires Stage 2 analysis (POST /analyze/{id}) to be run first.
+
+    Checks every unique medication pair using:
+    1. Curated interaction database (instant)
+    2. OpenFDA drug label API (authoritative)
+    3. MiniMax LLM (broad pharmacological knowledge)
+
+    Returns interaction report sorted by severity
+    with clinical management recommendations.
+    """
+    logger.info(f"Drug interaction check | doc_id={document_id}")
+    try:
+        result = check_all_medications(document_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Interaction check failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/interactions/check-pair", tags=["Stage 5 - Drug Interactions"])
+def check_pair_endpoint(drug_a: str, drug_b: str):
+    """
+    Check interaction between two specific drugs.
+
+    Useful for quick single pair checks without uploading a document.
+
+    Examples:
+    - drug_a=warfarin, drug_b=aspirin
+    - drug_a=metformin, drug_b=contrast dye
+    - drug_a=atorvastatin, drug_b=clarithromycin
+    """
+    logger.info(f"Pair check | '{drug_a}' + '{drug_b}'")
+    try:
+        result = check_drug_pair(drug_a, drug_b)
+        return result
+    except Exception as e:
+        logger.error(f"Pair check failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+    
+# ══════════════════════════════════════════════════════════════════
+# STAGE 6 — Medical Knowledge Graph
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/medical-graph/build/{document_id}", tags=["Stage 6 - Medical Graph"])
+def build_graph(document_id: int):
+    """
+    Builds a medical knowledge graph for a document.
+
+    Layer 1: Pre-built foundation graph (diseases, drugs,
+             symptoms, labs — all interconnected)
+    Layer 2: Document-specific entities and relationships
+             extracted by MiniMax + Stage 2 clinical entities
+
+    Combined graph enables multi-hop clinical reasoning.
+    Requires Stage 2 analysis to be run first.
+    """
+    logger.info(f"Build graph | doc_id={document_id}")
+    try:
+        result = build_medical_graph(document_id)
+        return result
+    except Exception as e:
+        logger.error(f"Graph build failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/medical-graph/query", tags=["Stage 6 - Medical Graph"])
+def graph_query(question: str, document_id: int):
+    """
+    Answer a clinical question using graph-enhanced reasoning.
+
+    Better than /medical-rag/query for relationship questions:
+    - What complications should we watch for?
+    - What labs need to be monitored for these medications?
+    - What conditions contraindicate this drug?
+    - What is the differential diagnosis for these symptoms?
+    """
+    logger.info(f"Graph query | question='{question[:50]}'")
+    try:
+        return query_medical_graph(question, document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Graph query failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.get("/medical-graph/patient-summary/{document_id}", tags=["Stage 6 - Medical Graph"])
+def patient_summary(document_id: int):
+    """
+    Complete patient clinical summary from graph traversal.
+
+    Shows:
+    - Complications to watch for each condition
+    - Monitoring requirements
+    - Drug-condition contraindications
+    - Differential diagnosis from symptoms
+    """
+    try:
+        return get_patient_summary(document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Patient summary failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.get("/medical-graph/explore/{document_id}", tags=["Stage 6 - Medical Graph"])
+def explore(document_id: int):
+    """
+    Explore the medical knowledge graph for a document.
+    Returns all nodes, edges, and relationship types.
+    """
+    try:
+        return explore_graph(document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Explore failed: {e}", exc_info=True)
         raise HTTPException(500, str(e))
