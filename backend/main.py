@@ -11,6 +11,12 @@ from backend.medical_safety.safety_pipeline import (
     run_medical_output_safety,
 )
 from backend.medical_safety.emergency_detector import detect_emergency
+from backend.fine_tuning.ft_pipeline import (
+    run_full_pipeline,
+    get_training_status,
+)
+from backend.fine_tuning.dataset_generator import build_training_dataset
+from backend.fine_tuning.evaluator import evaluate_model_responses
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from backend.database.db import init_db
@@ -747,3 +753,116 @@ def emergency_check(text: str):
     """
     result = detect_emergency(text)
     return result
+
+# ══════════════════════════════════════════════════════════════════
+# STAGE 10 — Fine-Tuning
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/fine-tuning/generate-dataset", tags=["Stage 10 - Fine-Tuning"])
+def generate_dataset(
+    document_ids: str = None,
+    include_templates: bool = True,
+    include_kb: bool = True,
+):
+    """
+    Generate medical QA training dataset.
+
+    Sources:
+    - 10 curated high-quality template QA pairs
+    - Knowledge base pairs (all diseases + drugs)
+    - Document-specific pairs (from uploaded documents)
+
+    document_ids: comma-separated list e.g. "1,2,3"
+    """
+    logger.info("Dataset generation requested")
+    try:
+        doc_ids = None
+        if document_ids:
+            doc_ids = [
+                int(x.strip())
+                for x in document_ids.split(",")
+                if x.strip().isdigit()
+            ]
+
+        result = build_training_dataset(
+            document_ids=doc_ids,
+            include_templates=include_templates,
+            include_kb=include_kb,
+        )
+        return result
+    except Exception as e:
+        logger.error(f"Dataset generation failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/fine-tuning/train", tags=["Stage 10 - Fine-Tuning"])
+def train_model(
+    document_ids: str = None,
+    num_epochs: int = 3,
+    use_simulation: bool = True,
+):
+    """
+    Run QLoRA fine-tuning on BioMistral-7B.
+
+    use_simulation=True (default):
+    - No GPU required
+    - Shows training process and expected metrics
+    - Saves simulated adapter config
+    - Perfect for learning and demonstration
+
+    use_simulation=False:
+    - Requires GPU with 8GB+ VRAM
+    - Installs: pip install unsloth bitsandbytes
+    - Produces actual fine-tuned adapter weights
+
+    document_ids: optional comma-separated doc IDs to include
+    """
+    logger.info(
+        f"Training requested | "
+        f"epochs={num_epochs} | simulation={use_simulation}"
+    )
+    try:
+        doc_ids = None
+        if document_ids:
+            doc_ids = [
+                int(x.strip())
+                for x in document_ids.split(",")
+                if x.strip().isdigit()
+            ]
+
+        result = run_full_pipeline(
+            document_ids=doc_ids,
+            num_epochs=num_epochs,
+            use_simulation=use_simulation,
+        )
+        return result
+    except Exception as e:
+        logger.error(f"Training failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/fine-tuning/evaluate", tags=["Stage 10 - Fine-Tuning"])
+def evaluate_model(model_name: str = "minimax_m2.5"):
+    """
+    Evaluate medical AI model quality.
+
+    Tests 8 medical questions across domains:
+    pharmacology, emergency medicine, nephrology,
+    laboratory medicine, clinical documentation,
+    endocrinology.
+
+    Scores on: term coverage, detail, structure, safety.
+    Returns grade: A/B/C/D with per-question breakdown.
+    """
+    logger.info(f"Evaluation requested | model={model_name}")
+    try:
+        return evaluate_model_responses(model_name)
+    except Exception as e:
+        logger.error(f"Evaluation failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.get("/fine-tuning/status", tags=["Stage 10 - Fine-Tuning"])
+def training_status():
+    """Check current fine-tuning pipeline status."""
+    return get_training_status()

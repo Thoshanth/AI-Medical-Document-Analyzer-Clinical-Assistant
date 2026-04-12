@@ -1,0 +1,42 @@
+[
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the classic symptoms of Hypothyroidism?",
+    "output": "Classic symptoms of Hypothyroidism: fatigue, weight gain, cold intolerance, constipation, dry skin, hair loss. Risk factors include: female sex, age > 60, autoimmune disease. Potential complications: myxedema coma, heart disease, infertility."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Warfarin?",
+    "output": "Warfarin (Vitamin K antagonist anticoagulant): Indicated for: atrial fibrillation, DVT. Common side effects: bleeding (major risk), bruising, skin necrosis (rare). Contraindications: active bleeding, pregnancy. Monitoring: INR weekly initially then monthly, signs of bleeding. HIGH-RISK medication requiring extra vigilance."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the classic symptoms of Essential Hypertension?",
+    "output": "Classic symptoms of Essential Hypertension: headache, dizziness, blurred vision, chest pain, shortness of breath, nosebleed. Risk factors include: age, obesity, high sodium diet. Potential complications: stroke, heart attack, heart failure."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What complications should be monitored in a patient with Type 2 Diabetes Mellitus?",
+    "output": "Key complications of Type 2 Diabetes Mellitus: diabetic nephropathy, diabetic retinopathy, diabetic neuropathy, cardiovascular disease, diabetic foot ulcers, hyperosmolar hyperglycemic state. Monitoring protocol: HbA1c every 3 months, fasting glucose daily, kidney function annually, eye exam annually. Emergency signs requiring immediate attention: blood glucose > 300 mg/dL, ketoacidosis, severe hypoglycemia."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the first-line treatment for Type 2 Diabetes?",
+    "output": "Metformin is the first-line pharmacotherapy for Type 2 Diabetes Mellitus (T2DM). It belongs to the biguanide class and works by inhibiting hepatic gluconeogenesis and improving peripheral insulin sensitivity. Standard dosing starts at 500mg twice daily with meals, titrated to 1000-2000mg/day. Lifestyle modification including diet control and regular exercise are equally important first-line interventions. Contraindications include eGFR < 30 mL/min/1.73m\u00b2, hepatic impairment, and use of iodinated contrast dye. HbA1c should be monitored every 3 months to assess response."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What complications should be monitored in a patient with Pneumonia?",
+    "output": "Key complications of Pneumonia: sepsis, respiratory failure, lung abscess, pleural effusion, bacteremia. Monitoring protocol: oxygen saturation, chest X-ray, CBC, blood cultures if severe. Emergency signs requiring immediate attention: SpO2 < 92%, respiratory rate > 30/min, confusion."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "Explain the Warfarin-Aspirin drug interaction.",
+    "output": "The Warfarin-Aspirin interaction is a major drug interaction with potentially life-threatening consequences. Mechanism: Pharmacodynamic interaction \u2014 both drugs affect hemostasis through different pathways. Warfarin inhibits vitamin K-dependent clotting factors (II, VII, IX, X) while aspirin inhibits platelet aggregation via COX-1 inhibition and causes gastric mucosal damage. Effect: Combined use increases bleeding risk 3-5x compared to warfarin alone. Risk of serious GI hemorrhage, intracranial bleeding, and other major bleeds. Management: Avoid combination when possible. If clinically necessary (e.g., post-MI with AF), use lowest effective aspirin dose (75-100mg), monitor INR closely, use proton pump inhibitor for GI protection, and educate patient on bleeding warning signs."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Amoxicillin?",
+    "output": "Amoxicillin (Penicillin antibiotic): Indicated for: respiratory infections, ear infections. Common side effects: diarrhea, nausea, skin rash. Contraindications: penicillin allergy, severe renal impairment. Monitoring: signs of allergic reaction, renal function. Standard monitoring applies."
+  }
+]

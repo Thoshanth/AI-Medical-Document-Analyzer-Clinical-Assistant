@@ -1,0 +1,142 @@
+[
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the standard treatment for Pneumonia?",
+    "output": "Pneumonia treatment: First-line: Amoxicillin (community-acquired), Azithromycin (atypical), Levofloxacin (severe). Second-line options include: specialist referral. Monitoring required: oxygen saturation, chest X-ray, CBC. Emergency signs: SpO2 < 92%, respiratory rate > 30/min."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What complications should be monitored in a patient with Essential Hypertension?",
+    "output": "Key complications of Essential Hypertension: stroke, heart attack, heart failure, kidney disease, aneurysm, retinopathy. Monitoring protocol: blood pressure daily, kidney function every 6 months, electrolytes if on diuretics, ECG annually. Emergency signs requiring immediate attention: BP > 180/120 mmHg, hypertensive crisis, chest pain with high BP."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the components of a SOAP note?",
+    "output": "A SOAP note is the standard clinical documentation format: S \u2014 SUBJECTIVE: Patient-reported information. Chief complaint (CC), history of present illness (HPI), review of systems (ROS), past medical history (PMH), medications, allergies, social history, family history. O \u2014 OBJECTIVE: Clinician-measured findings. Vital signs, physical examination findings, laboratory results, imaging results, ECG findings. A \u2014 ASSESSMENT: Clinical interpretation. Primary diagnosis with ICD-10 code, differential diagnoses, problem list, severity assessment. P \u2014 PLAN: Management decisions. Medications prescribed (with dose and duration), investigations ordered, referrals, procedures planned, patient education, follow-up schedule. SOAP notes provide structured, reproducible documentation that facilitates communication between healthcare providers and supports continuity of care."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the classic symptoms of Type 2 Diabetes Mellitus?",
+    "output": "Classic symptoms of Type 2 Diabetes Mellitus: increased thirst, frequent urination, fatigue, blurred vision, slow wound healing, frequent infections. Risk factors include: obesity, sedentary lifestyle, family history. Potential complications: diabetic nephropathy, diabetic retinopathy, diabetic neuropathy."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the classic symptoms of Community-Acquired Pneumonia?",
+    "output": "Classic symptoms of Community-Acquired Pneumonia: productive cough, fever, chills, pleuritic chest pain, dyspnea, fatigue. Risk factors include: age > 65, COPD, heart failure. Potential complications: sepsis, empyema, lung abscess."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the standard treatment for Hypothyroidism?",
+    "output": "Hypothyroidism treatment: First-line: Levothyroxine (T4 replacement), dose adjusted by TSH levels. Second-line options include: specialist referral. Monitoring required: TSH every 6-12 months, T4 levels, cholesterol levels. Emergency signs: myxedema coma, severe bradycardia."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the mechanism of ACE inhibitors?",
+    "output": "ACE inhibitors (e.g., Lisinopril, Enalapril, Ramipril) work by: 1) Blocking Angiotensin-Converting Enzyme (ACE) which normally converts Angiotensin I \u2192 Angiotensin II. 2) Reduced Angiotensin II leads to: vasodilation (reduced peripheral resistance), decreased aldosterone secretion (reduced sodium and water retention), reduced preload and afterload on the heart. 3) Increased bradykinin (ACE normally degrades bradykinin) contributes to vasodilation and causes the classic dry cough side effect (in 10-15% of patients). Clinical uses: Hypertension (first-line), Heart failure (reduces mortality), Diabetic nephropathy (renoprotective), Post-MI (reduces remodeling). Key monitoring: Serum potassium (hyperkalemia risk), creatinine (watch for acute kidney injury, especially first 2 weeks), blood pressure. Contraindications: Pregnancy (teratogenic \u2014 Category D), bilateral renal artery stenosis, history of angioedema."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the standard treatment for Anemia?",
+    "output": "Anemia treatment: First-line: Iron supplements (iron deficiency), Vitamin B12 injections (B12 deficiency), Folic acid (folate deficiency). Second-line options include: specialist referral. Monitoring required: CBC every 3 months, iron studies, vitamin B12 levels. Emergency signs: hemoglobin < 7 g/dL, chest pain."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What complications should be monitored in a patient with Anemia?",
+    "output": "Key complications of Anemia: heart failure, severe fatigue, organ damage, complications in pregnancy, depression. Monitoring protocol: CBC every 3 months, iron studies, vitamin B12 levels, reticulocyte count. Emergency signs requiring immediate attention: hemoglobin < 7 g/dL, chest pain, severe shortness of breath."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the emergency signs in a diabetic patient?",
+    "output": "Emergency signs in diabetic patients include: 1) Diabetic Ketoacidosis (DKA): blood glucose > 250 mg/dL, ketones in urine, fruity breath, vomiting, abdominal pain, Kussmaul breathing. Requires immediate hospitalization and IV insulin protocol. 2) Hyperosmolar Hyperglycemic State (HHS): glucose > 600 mg/dL, severe dehydration, altered consciousness, no significant ketosis. 3) Severe Hypoglycemia: glucose < 54 mg/dL with altered consciousness \u2014 give IV dextrose or glucagon. 4) Signs of end-organ damage: chest pain (MI), severe headache (stroke), acute vision loss (retinal emergency). All these require immediate emergency medical attention."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Lisinopril?",
+    "output": "Lisinopril (ACE Inhibitor): Indicated for: hypertension, heart failure. Common side effects: dry cough, hyperkalemia, angioedema (rare but dangerous). Contraindications: pregnancy, bilateral renal artery stenosis. Monitoring: blood pressure, potassium. Standard monitoring applies."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the classic symptoms of Anemia?",
+    "output": "Classic symptoms of Anemia: fatigue, weakness, pale skin, shortness of breath, dizziness, cold hands and feet. Risk factors include: poor nutrition, chronic disease, blood loss. Potential complications: heart failure, severe fatigue, organ damage."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Metformin?",
+    "output": "Metformin (Biguanide antidiabetic): Indicated for: Type 2 diabetes mellitus. Common side effects: nausea, diarrhea, stomach upset. Contraindications: severe kidney disease (eGFR < 30), liver disease. Monitoring: kidney function, vitamin B12 annually. Standard monitoring applies."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the standard treatment for Community-Acquired Pneumonia?",
+    "output": "Community-Acquired Pneumonia treatment: First-line: Amoxicillin-clavulanate, Azithromycin, Doxycycline. Second-line options include: specialist referral. Monitoring required: chest X-ray at 6 weeks, SpO2 monitoring, response to antibiotics in 48-72h. Emergency signs: confusion, urea > 7 mmol/L."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "How do you interpret a chest X-ray for pneumonia?",
+    "output": "Chest X-ray (CXR) findings in pneumonia: Classic consolidation: Homogeneous opacity in one or more lobes with air bronchograms (visible bronchi within opacity). Lobar pneumonia: Dense consolidation of entire lobe \u2014 typically bacterial (Streptococcus pneumoniae). Bronchopneumonia: Patchy bilateral perihilar infiltrates \u2014 typical in hospital-acquired and aspiration pneumonia. Interstitial pattern: Bilateral reticular/ground-glass opacities \u2014 suggests atypical pneumonia (Mycoplasma, Legionella, viral) or COVID-19. Associated findings to note: Pleural effusion (parapneumonic effusion or empyema), cavitation (Klebsiella, TB, abscess), air bronchograms, volume loss. CXR may be normal in early pneumonia or immunocompromised patients \u2014 CT chest is more sensitive. Follow-up CXR at 6 weeks recommended to ensure resolution and exclude underlying malignancy."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the FAST acronym for stroke recognition?",
+    "output": "FAST is the mnemonic for rapid stroke recognition: F \u2014 Face: Ask patient to smile. Facial drooping or asymmetry suggests stroke. A \u2014 Arms: Ask patient to raise both arms. Arm weakness or drift on one side is a stroke sign. S \u2014 Speech: Ask patient to repeat a simple phrase. Slurred, strange, or absent speech indicates stroke. T \u2014 Time: TIME IS BRAIN. Every minute of stroke = 1.9 million neurons lost. Call emergency services immediately. Note time of symptom onset \u2014 crucial for thrombolysis decision (tPA window: 3-4.5 hours from onset). Additional signs: sudden severe headache, vision changes, dizziness, sudden confusion, loss of balance. Any FAST positive finding requires immediate 911/112 call and transport to stroke center."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the difference between sensitivity and specificity?",
+    "output": "Sensitivity and specificity are fundamental test characteristics: SENSITIVITY (True Positive Rate): Ability to correctly identify people WITH the disease. Formula: TP / (TP + FN). High sensitivity = few false negatives = good RULING OUT test. Mnemonic: SnNOut \u2014 high Sensitivity, Negative result rules OUT. Use when: Missing a diagnosis is dangerous (e.g., HIV screening, PE rule-out). SPECIFICITY (True Negative Rate): Ability to correctly identify people WITHOUT the disease. Formula: TN / (TN + FP). High specificity = few false positives = good RULING IN test. Mnemonic: SpPIn \u2014 high Specificity, Positive result rules IN. Use when: False positives cause harm (e.g., confirmatory HIV test, cancer biopsy). Clinical application: Screening tests prioritize sensitivity; confirmatory tests prioritize specificity. PPV and NPV depend on disease prevalence in the population."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What complications should be monitored in a patient with Community-Acquired Pneumonia?",
+    "output": "Key complications of Community-Acquired Pneumonia: sepsis, empyema, lung abscess, respiratory failure, death (elderly). Monitoring protocol: chest X-ray at 6 weeks, SpO2 monitoring, response to antibiotics in 48-72h. Emergency signs requiring immediate attention: confusion, urea > 7 mmol/L, respiratory rate >= 30."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Amlodipine?",
+    "output": "Amlodipine (Calcium Channel Blocker (dihydropyridine)): Indicated for: hypertension, angina. Common side effects: peripheral edema, flushing, headache. Contraindications: cardiogenic shock, severe aortic stenosis. Monitoring: blood pressure, heart rate. Standard monitoring applies."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Insulin?",
+    "output": "Insulin (Insulin (antidiabetic hormone)): Indicated for: Type 1 diabetes, Type 2 diabetes. Common side effects: hypoglycemia (most common), weight gain, lipodystrophy at injection sites. Contraindications: hypoglycemia. Monitoring: blood glucose multiple times daily, HbA1c every 3 months. HIGH-RISK medication requiring extra vigilance."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What complications should be monitored in a patient with Hypothyroidism?",
+    "output": "Key complications of Hypothyroidism: myxedema coma, heart disease, infertility, birth defects, peripheral neuropathy. Monitoring protocol: TSH every 6-12 months, T4 levels, cholesterol levels. Emergency signs requiring immediate attention: myxedema coma, severe bradycardia, hypothermia."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Omeprazole?",
+    "output": "Omeprazole (Proton Pump Inhibitor (PPI)): Indicated for: GERD, peptic ulcer disease. Common side effects: headache, diarrhea, nausea. Contraindications: hypersensitivity to PPIs. Monitoring: magnesium levels (long-term use), vitamin B12 (long-term use). Standard monitoring applies."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the key clinical considerations for Atorvastatin?",
+    "output": "Atorvastatin (HMG-CoA reductase inhibitor (Statin)): Indicated for: hypercholesterolemia, cardiovascular disease prevention. Common side effects: myalgia, rhabdomyolysis (rare), liver enzyme elevation. Contraindications: active liver disease, pregnancy. Monitoring: LFTs at baseline, CK if muscle symptoms. Standard monitoring applies."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "How do you interpret an elevated WBC count?",
+    "output": "White Blood Cell (WBC) count elevation (leukocytosis) requires clinical correlation for proper interpretation. Normal range: 4.5-11.0 K/uL. Mild elevation (11-20 K/uL): Common causes include bacterial infection, inflammation, stress response, steroid use, or vigorous exercise. Moderate elevation (20-50 K/uL): Suggests significant infection (sepsis), severe inflammatory conditions, leukemoid reaction, or hematologic malignancy. Severe elevation (> 50 K/uL): Consider leukemia, leukemoid reaction, or severe systemic infection. Differential count is critical: neutrophilia suggests bacterial infection; lymphocytosis suggests viral infection; eosinophilia suggests allergy or parasites; monocytosis suggests chronic infection. Always correlate with clinical presentation, fever, CRP, procalcitonin, and clinical symptoms."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What does an elevated HbA1c of 8.5% indicate?",
+    "output": "HbA1c of 8.5% indicates poorly controlled diabetes. Interpretation: HbA1c < 5.7% = Normal, 5.7-6.4% = Prediabetes, \u2265 6.5% = Diabetes diagnosis, < 7.0% = Well-controlled diabetes target, 7.0-8.0% = Suboptimal control, > 8.0% = Poor control. At 8.5%, the estimated average glucose (eAG) is approximately 197 mg/dL. This level significantly increases risk of: Microvascular complications (retinopathy, nephropathy, neuropathy) and macrovascular complications (cardiovascular disease, stroke). Management: Review current medication regimen, assess adherence, consider intensification of therapy (add second agent or increase Metformin dose), dietary counseling, increase monitoring frequency. Target: < 7.0% for most patients (individualize for elderly/comorbid). Recheck HbA1c in 3 months after therapy change."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the standard treatment for Type 2 Diabetes Mellitus?",
+    "output": "Type 2 Diabetes Mellitus treatment: First-line: Metformin, lifestyle modification, diet control. Second-line options include: Sulfonylureas, DPP-4 inhibitors. Monitoring required: HbA1c every 3 months, fasting glucose daily, kidney function annually. Emergency signs: blood glucose > 300 mg/dL, ketoacidosis."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What are the classic symptoms of Pneumonia?",
+    "output": "Classic symptoms of Pneumonia: fever, cough with phlegm, chest pain, shortness of breath, fatigue, chills. Risk factors include: age extremes, immunocompromised, smoking. Potential complications: sepsis, respiratory failure, lung abscess."
+  },
+  {
+    "instruction": "You are an expert medical AI assistant trained on clinical literature. Provide accurate, evidence-based medical information. Always recommend consulting healthcare professionals for clinical decisions.",
+    "input": "What is the standard treatment for Essential Hypertension?",
+    "output": "Essential Hypertension treatment: First-line: ACE inhibitors, ARBs, Calcium channel blockers. Second-line options include: Beta-blockers, Alpha-blockers. Monitoring required: blood pressure daily, kidney function every 6 months, electrolytes if on diuretics. Emergency signs: BP > 180/120 mmHg, hypertensive crisis."
+  }
+]

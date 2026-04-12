@@ -19,3 +19,10 @@ rank-bm25
 scikit-learn
 networkx
 langgraph
+datasets
+transformers
+accelerate
+peft
+tqdm
+unsloth 
+bitsandbytes

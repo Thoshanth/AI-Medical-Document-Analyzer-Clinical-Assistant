@@ -1,0 +1,120 @@
+{
+  "model": "minimax_m2.5",
+  "average_score": 12.38,
+  "max_score": 100,
+  "grade": "D \u2014 Needs improvement",
+  "results": [
+    {
+      "question": "What is the first-line treatment for Type 2 Diabetes?",
+      "domain": "pharmacology",
+      "response_preview": "**First\u2011line management of Type2 Diabetes Mellitus (T2DM)**  \n\n| Step | What to do | Why it matters | Practical tips |\n|------|------------|----------------|----------------|\n| **1. Lifestyle modifica...",
+      "metrics": {
+        "key_terms_found": "4/4",
+        "term_coverage_score": 40.0,
+        "length_score": 20,
+        "structure_score": 4,
+        "safety_score": 0,
+        "total_score": 64.0
+      },
+      "response_length_words": 165
+    },
+    {
+      "question": "What are emergency signs of cardiac arrest?",
+      "domain": "emergency_medicine",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/5",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    },
+    {
+      "question": "How do you interpret an elevated creatinine?",
+      "domain": "nephrology",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/5",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    },
+    {
+      "question": "What is the mechanism of Warfarin?",
+      "domain": "pharmacology",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/4",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    },
+    {
+      "question": "What does a WBC of 15 K/uL indicate?",
+      "domain": "laboratory_medicine",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/4",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    },
+    {
+      "question": "What are the SOAP note components?",
+      "domain": "clinical_documentation",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/4",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    },
+    {
+      "question": "How do you recognize a stroke?",
+      "domain": "emergency_medicine",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/6",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    },
+    {
+      "question": "What is HbA1c and why is it measured?",
+      "domain": "endocrinology",
+      "response_preview": "...",
+      "metrics": {
+        "key_terms_found": "0/4",
+        "term_coverage_score": 0.0,
+        "length_score": 5,
+        "structure_score": 0,
+        "safety_score": 0,
+        "total_score": 5.0
+      },
+      "response_length_words": 0
+    }
+  ]
+}

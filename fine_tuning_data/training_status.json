@@ -1,0 +1,98 @@
+{
+  "status": "complete",
+  "message": "Fine-tuning pipeline complete",
+  "dataset": {
+    "total_pairs": 36,
+    "train_pairs": 28,
+    "eval_pairs": 8,
+    "train_path": "fine_tuning_data\\train_dataset.json",
+    "eval_path": "fine_tuning_data\\eval_dataset.json",
+    "sources": {
+      "templates": 10,
+      "knowledge_base": 26,
+      "documents": 0
+    }
+  },
+  "training": {
+    "status": "simulation_complete",
+    "model": "BioMistral/BioMistral-7B",
+    "fine_tuning_type": "QLoRA (4-bit quantization + LoRA adapters)",
+    "training_samples": 28,
+    "num_epochs": 3,
+    "final_loss": 1.2796,
+    "initial_loss": 2.5,
+    "loss_reduction": 48.8,
+    "training_log": [
+      {
+        "epoch": 1,
+        "step": 2,
+        "loss": 2.33,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 1,
+        "step": 4,
+        "loss": 2.195,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 1,
+        "step": 6,
+        "loss": 2.0774,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 2,
+        "step": 9,
+        "loss": 1.8903,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 2,
+        "step": 11,
+        "loss": 1.7512,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 2,
+        "step": 13,
+        "loss": 1.6398,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 3,
+        "step": 16,
+        "loss": 1.4752,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 3,
+        "step": 18,
+        "loss": 1.372,
+        "learning_rate": 0.0002
+      },
+      {
+        "epoch": 3,
+        "step": 20,
+        "loss": 1.2796,
+        "learning_rate": 0.0002
+      }
+    ],
+    "adapter_saved": "fine_tuning_data\\adapters\\simulated_adapter",
+    "simulation_time_seconds": 1.51,
+    "note": "This is a simulation. For actual fine-tuning: run with use_simulation=False on a GPU with 8GB+ VRAM. Install: pip install unsloth bitsandbytes",
+    "what_would_happen": {
+      "step_1": "Load BioMistral/BioMistral-7B in 4-bit quantization (QLoRA)",
+      "step_2": "Attach LoRA adapters to attention layers",
+      "step_3": "Train for 3 epochs on 28 medical QA pairs",
+      "step_4": "Save LoRA adapter weights (~50MB vs 14GB full model)",
+      "step_5": "Fine-tuned model answers medical questions like a specialist"
+    }
+  },
+  "evaluation": {
+    "average_score": 54.88,
+    "grade": "C \u2014 Adequate medical knowledge",
+    "model": "minimax_m2.5_baseline"
+  },
+  "updated_at": "2026-04-12T16:43:23.817036"
+}
