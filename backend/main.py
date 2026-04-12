@@ -4,6 +4,7 @@ import shutil
 import time
 from pathlib import Path
 from contextlib import asynccontextmanager
+from backend.clinical_agents.agent_pipeline import run_clinical_agents
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
@@ -17,6 +18,16 @@ from backend.clinical_nlp.nlp_pipeline import run_clinical_nlp, get_clinical_ent
 from backend.knowledge_base.kb_pipeline import enrich_with_knowledge_base
 from backend.knowledge_base.drug_db import get_drug_info
 from backend.knowledge_base.disease_db import get_disease_info, get_all_diseases
+from backend.report_generator.soap_generator import generate_soap_note
+from backend.report_generator.differential_generator import (
+    generate_differential_report,
+)
+from backend.report_generator.medication_report import generate_medication_report
+from backend.report_generator.lab_report_generator import generate_lab_report
+from backend.report_generator.report_pipeline import (
+    generate_full_report,
+    get_saved_report,
+)
 from backend.drug_interaction.interaction_pipeline import (
     check_all_medications,
     check_drug_pair,
@@ -513,4 +524,151 @@ def explore(document_id: int):
         raise HTTPException(404, str(e))
     except Exception as e:
         logger.error(f"Explore failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+    
+# ══════════════════════════════════════════════════════════════════
+# STAGE 7 — Clinical Report Generator
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/reports/soap/{document_id}", tags=["Stage 7 - Clinical Reports"])
+def soap_report(document_id: int):
+    """
+    Generate a SOAP note (Subjective, Objective, Assessment, Plan).
+    The universal clinical documentation format used by physicians.
+    Requires Stage 2 analysis first.
+    """
+    logger.info(f"SOAP report | doc_id={document_id}")
+    try:
+        return generate_soap_note(document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"SOAP generation failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/reports/differential/{document_id}", tags=["Stage 7 - Clinical Reports"])
+def differential_report(document_id: int):
+    """
+    Generate a differential diagnosis report.
+    Ranked possible diagnoses with supporting/opposing evidence.
+    Works best after Stage 6 graph is built.
+    """
+    logger.info(f"Differential report | doc_id={document_id}")
+    try:
+        return generate_differential_report(document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Differential failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/reports/medication/{document_id}", tags=["Stage 7 - Clinical Reports"])
+def medication_report_endpoint(document_id: int):
+    """
+    Generate a pharmacist-style medication review report.
+    Includes drug interactions, high-risk flags, monitoring requirements.
+    Works best after Stage 5 interaction check.
+    """
+    logger.info(f"Medication report | doc_id={document_id}")
+    try:
+        return generate_medication_report(document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Medication report failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/reports/lab/{document_id}", tags=["Stage 7 - Clinical Reports"])
+def lab_report_endpoint(document_id: int):
+    """
+    Generate a laboratory results interpretation report.
+    Critical values flagged, patterns analyzed, follow-up recommended.
+    """
+    logger.info(f"Lab report | doc_id={document_id}")
+    try:
+        return generate_lab_report(document_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Lab report failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.post("/reports/full/{document_id}", tags=["Stage 7 - Clinical Reports"])
+def full_report(document_id: int):
+    """
+    Generate ALL four reports in one call.
+    SOAP + Differential + Medication Review + Lab Interpretation.
+    Saves to disk for later retrieval.
+    Individual report failures don't fail the whole request.
+    """
+    logger.info(f"Full report | doc_id={document_id}")
+    try:
+        return generate_full_report(document_id)
+    except Exception as e:
+        logger.error(f"Full report failed: {e}", exc_info=True)
+        raise HTTPException(500, str(e))
+
+
+@app.get("/reports/{document_id}", tags=["Stage 7 - Clinical Reports"])
+def get_report(document_id: int):
+    """
+    Retrieve a previously generated full report.
+    No LLM call — reads from saved file.
+    """
+    report = get_saved_report(document_id)
+    if not report:
+        raise HTTPException(
+            404,
+            f"No report found for document {document_id}. "
+            f"Run POST /reports/full/{document_id} first."
+        )
+    return report
+
+
+# ══════════════════════════════════════════════════════════════════
+# STAGE 8 — 5-Agent Clinical System
+# ══════════════════════════════════════════════════════════════════
+
+@app.post("/clinical-agents/analyze", tags=["Stage 8 - Clinical Agents"])
+def clinical_agent_analysis(
+    document_id: int,
+    question: str,
+    max_iterations: int = 3,
+    show_agent_trace: bool = False,
+):
+    """
+    Full 5-agent clinical analysis system.
+
+    Agent 1 — Triage: urgency assessment + emergency detection
+    Agent 2 — Diagnosis: differential diagnosis + ICD-10 codes
+    Agent 3 — Pharmacist: medication safety + interactions
+    Agent 4 — Research: evidence-based findings + guidelines
+    Agent 5 — Safety: quality review + ethics + final approval
+
+    Emergency cases are fast-tracked directly to Safety Agent.
+    Safety Agent can request revisions from any other agent.
+
+    show_agent_trace=true reveals each agent's full output.
+
+    Requires at minimum Stage 2 analysis (POST /analyze/{id}).
+    Works best with Stages 3-7 also completed.
+    """
+    logger.info(
+        f"Clinical agents | doc_id={document_id} | "
+        f"question='{question[:50]}'"
+    )
+    try:
+        result = run_clinical_agents(
+            document_id=document_id,
+            question=question,
+            max_iterations=max_iterations,
+            show_agent_trace=show_agent_trace,
+        )
+        return result
+    except Exception as e:
+        logger.error(f"Clinical agents failed: {e}", exc_info=True)
         raise HTTPException(500, str(e))

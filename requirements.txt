@@ -18,3 +18,4 @@ chromadb
 rank-bm25
 scikit-learn
 networkx
+langgraph
