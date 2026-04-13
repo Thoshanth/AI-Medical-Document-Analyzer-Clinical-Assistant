@@ -11,7 +11,7 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-MODEL = "openrouter/free"
+MODEL = "minimax/minimax-m2.5:free"
 
 
 def chat_completion(
