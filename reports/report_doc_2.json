@@ -1,0 +1,50 @@
+{
+  "document_id": 2,
+  "generated_at": "2026-04-13T11:54:31.854379",
+  "reports": {
+    "soap_note": {
+      "report_type": "soap_note",
+      "document_id": 2,
+      "generated_at": "2026-04-13T11:55:05.104672",
+      "report": "**SUBJECTIVE:**\nPatient reports no symptoms. No complaints or pertinent history documented.\n\n**OBJECTIVE:**\nNo vital signs documented. No laboratory results available. No physical examination findings or procedures recorded.\n\n**ASSESSMENT:**\nAsymptomatic encounter; no diagnoses identified. Patient triaged as routine.\n\n**PLAN:**\nRoutine follow\u2011up as clinically indicated. Instruct patient to return or seek care if any symptoms develop. No specific treatments, medications, or referrals warranted at this time.\n\n**CLINICAL ALERTS:**\nNone identified.",
+      "metadata": {
+        "symptoms_count": 0,
+        "diagnoses_count": 0,
+        "medications_count": 0,
+        "labs_count": 0
+      },
+      "disclaimer": "\u2695\ufe0f This SOAP note is AI-generated for decision support only. Must be reviewed and verified by a licensed healthcare professional before clinical use."
+    },
+    "differential_diagnosis": {
+      "report_type": "differential_diagnosis",
+      "document_id": 2,
+      "generated_at": "2026-04-13T11:55:53.634505",
+      "report": "**CLINICAL PRESENTATION SUMMARY:**\nThe patient reports no symptoms, has no documented prior diagnoses, and all available laboratory values are within normal limits. There are no abnormal findings to guide a differential diagnosis.\n\n**DIFFERENTIAL DIAGNOSES:**\n1. **Normal health (no acute illness)** \u2013 Probability: High  \n   Supporting evidence: Absence of reported symptoms and normal laboratory results.  \n   Against: None identified from the provided data.  \n   Key distinguishing tests: None required at this time; clinical reassessment would be warranted if symptoms develop.\n\n**RECOMMENDED WORKUP:**\nNo additional diagnostic workup is indicated based on the current asymptomatic presentation and normal labs. Routine preventive care and health maintenance should continue as appropriate for the patient\u2019s age, sex, and risk factors.\n\n**MOST LIKELY DIAGNOSIS:**\nNormal health (the patient is asymptomatic with no laboratory abnormalities). This conclusion is directly supported by the lack of symptoms and normal laboratory data.\n\n**IMMEDIATE ACTIONS REQUIRED:**\nNo urgent steps are needed. Advise the patient to seek medical evaluation if any new symptoms arise and to adhere to standard follow\u2011up schedules for preventive care.",
+      "graph_differential": [],
+      "metadata": {
+        "symptoms_analyzed": 0,
+        "existing_diagnoses": 0,
+        "abnormal_labs": 0,
+        "graph_available": true
+      },
+      "disclaimer": "\u2695\ufe0f Differential diagnosis is AI-generated for clinical decision support only. Final diagnosis must be made by a licensed physician."
+    },
+    "medication_review": {
+      "report_type": "medication_review",
+      "document_id": 2,
+      "generated_at": "2026-04-13T11:55:53.642934",
+      "report": "No medications found in this document.",
+      "interactions": [],
+      "disclaimer": ""
+    },
+    "lab_interpretation": {
+      "report_type": "lab_interpretation",
+      "document_id": 2,
+      "generated_at": "2026-04-13T11:55:53.650934",
+      "report": "No laboratory values found in this document.",
+      "critical_values": [],
+      "disclaimer": ""
+    }
+  },
+  "errors": {}
+}
