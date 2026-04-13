@@ -26,3 +26,5 @@ peft
 tqdm
 unsloth 
 bitsandbytes
+ragas
+langchain-openai
