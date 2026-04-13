@@ -536,6 +536,6 @@ B.Tech — Hyderabad Institute of Technology and Management (HITAM)
 
 Project : AI Medical Document Analyzer (12 stages)
 
-- GitHub: [Thoshanth]](https://github.com/Thoshanth)
+- GitHub: [Thoshanth](https://github.com/Thoshanth)
 - LinkedIn: [linkedin.com/in/snthoshanthreddymandapati](https://www.linkedin.com/in/s-n-thoshanth-reddy-mandapati/)
 - Email: mthoshanthreddy@gmail.com
