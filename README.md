@@ -334,113 +334,130 @@ curl -X POST "http://localhost:8000/clinical-agents/analyze?document_id=1&questi
 curl -X POST http://localhost:8000/evaluation/run/1
 ```
 
----
+###
 
 ## 📁 Project Structure
 ai-medical-platform/
+│
 ├── backend/
-│   ├── main.py                        # FastAPI app + all endpoints
-│   ├── logger.py                      # Centralized structured logging
-│   ├── llm_client.py                  # LLM client with fallback chain
+│   ├── main.py                     # FastAPI app + all endpoints
+│   ├── logger.py                   # Centralized structured logging
+│   ├── llm_client.py               # LLM client with fallback chain
+│   │
 │   ├── database/
-│   │   └── db.py                      # SQLite + SQLAlchemy schema
+│   │   └── db.py                   # SQLite + SQLAlchemy schema
+│   │
 │   ├── ingestion/
-│   │   ├── extractor.py               # Medical document extraction
-│   │   ├── fhir_parser.py             # FHIR JSON parser
-│   │   ├── classifier.py              # Document type classification
-│   │   ├── medical_metadata.py        # Urgency + PII detection
-│   │   └── cleaner.py                 # Medical text normalization
+│   │   ├── extractor.py            # Medical document extraction
+│   │   ├── fhir_parser.py          # FHIR JSON parser
+│   │   ├── classifier.py           # Document type classification
+│   │   ├── medical_metadata.py     # Urgency + PII detection
+│   │   └── cleaner.py              # Medical text normalization
+│   │
 │   ├── clinical_nlp/
-│   │   ├── entity_extractor.py        # 6-type clinical entity extraction
-│   │   ├── icd_mapper.py              # ICD-10 code mapping
-│   │   ├── medication_parser.py       # Drug normalization
-│   │   ├── lab_interpreter.py         # Lab value interpretation
-│   │   └── nlp_pipeline.py            # Full NLP orchestration
+│   │   ├── entity_extractor.py     # 6-type clinical entity extraction
+│   │   ├── icd_mapper.py           # ICD-10 code mapping
+│   │   ├── medication_parser.py    # Drug normalization
+│   │   ├── lab_interpreter.py      # Lab value interpretation
+│   │   └── nlp_pipeline.py         # Full NLP orchestration
+│   │
 │   ├── knowledge_base/
-│   │   ├── disease_db.py              # Curated disease database
-│   │   ├── drug_db.py                 # Drug DB + OpenFDA API
-│   │   ├── symptom_checker.py         # Symptom → condition mapping
-│   │   └── kb_pipeline.py             # KB enrichment pipeline
+│   │   ├── disease_db.py           # Curated disease database
+│   │   ├── drug_db.py              # Drug DB + OpenFDA API
+│   │   ├── symptom_checker.py      # Symptom → condition mapping
+│   │   └── kb_pipeline.py          # KB enrichment pipeline
+│   │
 │   ├── medical_rag/
-│   │   ├── medical_chunker.py         # Medical-aware chunking
-│   │   ├── medical_embedder.py        # PubMedBERT embeddings
-│   │   ├── medical_retriever.py       # Hybrid 3-signal retrieval
-│   │   ├── answer_generator.py        # Safe medical answer generation
-│   │   └── rag_pipeline.py            # Full RAG orchestration
+│   │   ├── medical_chunker.py      # Medical-aware chunking
+│   │   ├── medical_embedder.py     # PubMedBERT embeddings
+│   │   ├── medical_retriever.py    # Hybrid 3-signal retrieval
+│   │   ├── answer_generator.py     # Safe medical answer generation
+│   │   └── rag_pipeline.py         # Full RAG orchestration
+│   │
 │   ├── drug_interaction/
-│   │   ├── interaction_db.py          # 15 curated interaction pairs
-│   │   ├── fda_checker.py             # OpenFDA interaction API
-│   │   ├── llm_checker.py             # LLM fallback checker
-│   │   └── interaction_pipeline.py    # All-medication check
+│   │   ├── interaction_db.py       # 15 curated interaction pairs
+│   │   ├── fda_checker.py          # OpenFDA interaction API
+│   │   ├── llm_checker.py          # LLM fallback checker
+│   │   └── interaction_pipeline.py # All-medication check
+│   │
 │   ├── medical_graph/
-│   │   ├── graph_schema.py            # Node + edge type definitions
-│   │   ├── foundation_graph.py        # Pre-built medical knowledge graph
-│   │   ├── graph_extractor.py         # LLM entity extraction
-│   │   ├── graph_store.py             # NetworkX persistence
-│   │   ├── graph_traversal.py         # Clinical reasoning traversal
-│   │   └── graph_pipeline.py          # Graph build + query
+│   │   ├── graph_schema.py         # Node + edge type definitions
+│   │   ├── foundation_graph.py     # Pre-built medical knowledge graph
+│   │   ├── graph_extractor.py      # LLM entity extraction
+│   │   ├── graph_store.py          # NetworkX persistence
+│   │   ├── graph_traversal.py      # Clinical reasoning traversal
+│   │   └── graph_pipeline.py       # Graph build + query
+│   │
 │   ├── report_generator/
-│   │   ├── soap_generator.py          # SOAP note generation
-│   │   ├── differential_generator.py  # Differential diagnosis report
-│   │   ├── medication_report.py       # Pharmacist medication review
-│   │   ├── lab_report_generator.py    # Lab interpretation report
-│   │   └── report_pipeline.py         # Full report orchestration
+│   │   ├── soap_generator.py       # SOAP note generation
+│   │   ├── differential_generator.py # Differential diagnosis report
+│   │   ├── medication_report.py    # Pharmacist medication review
+│   │   ├── lab_report_generator.py # Lab interpretation report
+│   │   └── report_pipeline.py      # Full report orchestration
+│   │
 │   ├── clinical_agents/
-│   │   ├── clinical_state.py          # LangGraph shared state
-│   │   ├── triage_agent.py            # Triage Agent
-│   │   ├── diagnosis_agent.py         # Diagnosis Agent
-│   │   ├── pharmacist_agent.py        # Pharmacist Agent
-│   │   ├── research_agent.py          # Research Agent
-│   │   ├── safety_agent.py            # Safety & Ethics Agent
-│   │   ├── clinical_graph.py          # LangGraph workflow
-│   │   └── agent_pipeline.py          # Entry point
+│   │   ├── clinical_state.py       # LangGraph shared state
+│   │   ├── triage_agent.py         # Triage Agent
+│   │   ├── diagnosis_agent.py      # Diagnosis Agent
+│   │   ├── pharmacist_agent.py     # Pharmacist Agent
+│   │   ├── research_agent.py       # Research Agent
+│   │   ├── safety_agent.py         # Safety & Ethics Agent
+│   │   ├── clinical_graph.py       # LangGraph workflow
+│   │   └── agent_pipeline.py       # Entry point
+│   │
 │   ├── medical_safety/
-│   │   ├── input_validator.py         # Layer 1: input validation
-│   │   ├── emergency_detector.py      # Layer 2: emergency detection
-│   │   ├── medical_pii_shield.py      # Layer 3: medical PII
-│   │   ├── hallucination_checker.py   # Layer 4: hallucination check
-│   │   ├── disclaimer_injector.py     # Layer 5: disclaimer injection
-│   │   ├── scope_enforcer.py          # Layer 6: scope enforcement
-│   │   └── safety_pipeline.py         # Safety orchestration
+│   │   ├── input_validator.py      # Layer 1: input validation
+│   │   ├── emergency_detector.py   # Layer 2: emergency detection
+│   │   ├── medical_pii_shield.py   # Layer 3: medical PII protection
+│   │   ├── hallucination_checker.py # Layer 4: hallucination check
+│   │   ├── disclaimer_injector.py  # Layer 5: disclaimer injection
+│   │   ├── scope_enforcer.py       # Layer 6: scope enforcement
+│   │   └── safety_pipeline.py      # Safety orchestration
+│   │
 │   ├── fine_tuning/
-│   │   ├── dataset_generator.py       # Medical QA dataset builder
-│   │   ├── trainer.py                 # QLoRA fine-tuning
-│   │   ├── evaluator.py               # Model evaluation
-│   │   └── ft_pipeline.py             # Full pipeline
+│   │   ├── dataset_generator.py    # Medical QA dataset builder
+│   │   ├── trainer.py              # QLoRA fine-tuning
+│   │   ├── evaluator.py            # Model evaluation
+│   │   └── ft_pipeline.py          # Full fine-tuning pipeline
+│   │
 │   └── evaluation/
-│       ├── golden_dataset.py          # Golden QA dataset
-│       ├── ragas_evaluator.py         # RAGAS metrics
-│       ├── medical_metrics.py         # Medical-specific metrics
-│       └── eval_pipeline.py           # Full evaluation
+│       ├── golden_dataset.py       # Golden QA dataset
+│       ├── ragas_evaluator.py      # RAGAS metrics
+│       ├── medical_metrics.py      # Medical-specific metrics
+│       └── eval_pipeline.py        # Full evaluation pipeline
+│
 ├── frontend/
 │   └── src/
-│       ├── api.js                     # Complete API service
-│       ├── App.js                     # Main app + routing
+│       ├── api.js                  # Complete API service
+│       ├── App.js                  # Main app + routing
+│       │
 │       ├── components/
-│       │   ├── Sidebar.js             # Navigation sidebar
-│       │   ├── DocSelector.js         # Document selector
-│       │   └── LoadingSpinner.js      # Loading component
+│       │   ├── Sidebar.js          # Navigation sidebar
+│       │   ├── DocSelector.js      # Document selector
+│       │   └── LoadingSpinner.js   # Loading component
+│       │
 │       └── pages/
-│           ├── DocumentsPage.js       # Upload + pipeline runner
-│           ├── ChatPage.js            # Medical RAG chat
-│           ├── ReportsPage.js         # Report generation
-│           ├── DrugCheckPage.js       # Drug interaction checker
-│           ├── AgentsPage.js          # 5-agent system UI
-│           └── EvaluationPage.js      # RAGAS evaluation UI
-├── uploads/                           # Uploaded documents
-├── chroma_db/                         # ChromaDB vector storage
-├── graph_data/                        # Medical knowledge graphs
-├── knowledge_cache/                   # OpenFDA API cache
-├── fine_tuning_data/                  # Training datasets + adapters
-├── evaluation_results/                # RAGAS evaluation reports
-├── reports/                           # Generated clinical reports
-├── logs/                              # Daily structured logs
+│           ├── DocumentsPage.js    # Upload + pipeline runner
+│           ├── ChatPage.js         # Medical RAG chat
+│           ├── ReportsPage.js      # Report generation
+│           ├── DrugCheckPage.js    # Drug interaction checker
+│           ├── AgentsPage.js       # 5-agent system UI
+│           └── EvaluationPage.js   # RAGAS evaluation UI
+│
+├── uploads/                        # Uploaded documents
+├── chroma_db/                     # ChromaDB vector storage
+├── graph_data/                    # Medical knowledge graphs
+├── knowledge_cache/               # OpenFDA API cache
+├── fine_tuning_data/              # Training datasets + adapters
+├── evaluation_results/            # RAGAS evaluation reports
+├── reports/                       # Generated clinical reports
+├── logs/                          # Daily structured logs
+│
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
-└── .env                               # API keys (not committed)
-
----
+└── .env                           # API keys (not committed)
+###
 
 ## 🔐 Medical Safety Features
 
