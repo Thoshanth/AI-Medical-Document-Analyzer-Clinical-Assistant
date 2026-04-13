@@ -11,7 +11,7 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-MODEL = "nvidia/nemotron-3-nano-30b-a3b:free"
+MODEL = "openrouter/free"
 
 
 def chat_completion(

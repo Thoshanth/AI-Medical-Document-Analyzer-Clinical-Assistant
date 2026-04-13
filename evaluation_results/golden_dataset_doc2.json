@@ -1,0 +1,150 @@
+[
+  {
+    "question": "What is the normal range for WBC count?",
+    "ground_truth": "The normal range for WBC (White Blood Cell) count is 4.5 to 11.0 K/uL. Values above 11.0 K/uL indicate leukocytosis which may suggest infection, inflammation, or hematologic conditions.",
+    "domain": "laboratory_medicine",
+    "difficulty": "easy",
+    "expected_terms": [
+      "4.5",
+      "11.0",
+      "leukocytosis",
+      "infection"
+    ]
+  },
+  {
+    "question": "What is the first-line medication for Type 2 Diabetes?",
+    "ground_truth": "Metformin is the first-line pharmacotherapy for Type 2 Diabetes. It works by inhibiting hepatic gluconeogenesis and improving insulin sensitivity. It is contraindicated in severe renal impairment (eGFR < 30).",
+    "domain": "pharmacology",
+    "difficulty": "easy",
+    "expected_terms": [
+      "metformin",
+      "first-line",
+      "glucose",
+      "insulin"
+    ]
+  },
+  {
+    "question": "What are the emergency signs of a cardiac event?",
+    "ground_truth": "Emergency cardiac signs include chest pain or tightness, shortness of breath, sweating, nausea, left arm or jaw pain, and palpitations. These require immediate emergency services (911/112) and should not be managed with AI guidance.",
+    "domain": "emergency_medicine",
+    "difficulty": "medium",
+    "expected_terms": [
+      "chest pain",
+      "emergency",
+      "911",
+      "immediate"
+    ]
+  },
+  {
+    "question": "What monitoring is required for patients on Warfarin?",
+    "ground_truth": "Patients on Warfarin require regular INR monitoring - weekly initially then monthly once stable. Target INR ranges vary by indication (typically 2.0-3.0 for AF, 2.5-3.5 for mechanical heart valves). Signs of bleeding should be monitored continuously.",
+    "domain": "pharmacology",
+    "difficulty": "medium",
+    "expected_terms": [
+      "inr",
+      "monitoring",
+      "bleeding",
+      "warfarin"
+    ]
+  },
+  {
+    "question": "What does an HbA1c of 7.5% indicate?",
+    "ground_truth": "HbA1c of 7.5% indicates suboptimal diabetes control. The target for most diabetic patients is below 7.0%. At 7.5% the estimated average glucose is approximately 169 mg/dL. This level increases risk of microvascular complications and warrants medication review.",
+    "domain": "endocrinology",
+    "difficulty": "medium",
+    "expected_terms": [
+      "suboptimal",
+      "7.0",
+      "glucose",
+      "complications"
+    ]
+  },
+  {
+    "question": "What is the FAST acronym used for?",
+    "ground_truth": "FAST is a stroke recognition acronym: F=Face drooping, A=Arm weakness, S=Speech difficulty, T=Time to call emergency services. Any FAST positive sign requires immediate 911/112 call as time is critical - every minute of stroke equals 1.9 million neurons lost.",
+    "domain": "emergency_medicine",
+    "difficulty": "easy",
+    "expected_terms": [
+      "face",
+      "arm",
+      "speech",
+      "time",
+      "emergency"
+    ]
+  },
+  {
+    "question": "What are contraindications for Metformin?",
+    "ground_truth": "Metformin contraindications include: eGFR < 30 mL/min/1.73m\u00b2 (severe renal impairment), active liver disease, alcoholism, and iodinated contrast dye administration (hold 48 hours before and after). These contraindications relate to risk of lactic acidosis.",
+    "domain": "pharmacology",
+    "difficulty": "hard",
+    "expected_terms": [
+      "egfr",
+      "renal",
+      "contrast",
+      "lactic acidosis"
+    ]
+  },
+  {
+    "question": "What is the significance of a critical potassium level?",
+    "ground_truth": "Critical potassium levels (below 2.5 or above 6.5 mEq/L) are medical emergencies. Hypokalemia causes muscle weakness, arrhythmias, and ECG changes. Hyperkalemia causes life-threatening cardiac arrhythmias and requires immediate treatment. Both require immediate physician notification.",
+    "domain": "laboratory_medicine",
+    "difficulty": "hard",
+    "expected_terms": [
+      "critical",
+      "arrhythmia",
+      "cardiac",
+      "immediate"
+    ]
+  },
+  {
+    "question": "What is the patient's name and age as per the lab report?",
+    "ground_truth": "M SRILAKSHMI, 40 years old",
+    "domain": "clinical_note",
+    "difficulty": "easy",
+    "expected_terms": [
+      "M SRILAKSHMI",
+      "40 years old"
+    ]
+  },
+  {
+    "question": "What is the value of Ferritin in the patient's blood test?",
+    "ground_truth": "11.7 ng/mL",
+    "domain": "laboratory_medicine",
+    "difficulty": "easy",
+    "expected_terms": [
+      "Ferritin",
+      "11.7 ng/mL"
+    ]
+  },
+  {
+    "question": "What is the reference range for Iron in female patients?",
+    "ground_truth": "50 - 170 \u00b5g/dL",
+    "domain": "laboratory_medicine",
+    "difficulty": "medium",
+    "expected_terms": [
+      "Iron",
+      "female",
+      "50 - 170 \u00b5g/dL"
+    ]
+  },
+  {
+    "question": "What is the Hemoglobin level in the patient's blood test?",
+    "ground_truth": "11.5 g/dL",
+    "domain": "laboratory_medicine",
+    "difficulty": "easy",
+    "expected_terms": [
+      "Hemoglobin",
+      "11.5 g/dL"
+    ]
+  },
+  {
+    "question": "What is the technology used for the Iron test?",
+    "ground_truth": "Ferrozine method without deproteinization",
+    "domain": "laboratory_medicine",
+    "difficulty": "medium",
+    "expected_terms": [
+      "Iron test",
+      "Ferrozine method"
+    ]
+  }
+]
